@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Body
+from fastapi import APIRouter
 
 from product.application.factory.fetch_product_data_usecase_factory import FetchProductDataUsecaseFactory
 
@@ -32,6 +32,13 @@ async def get_etf_info():
         ]
     }
 
+@product_data_router.get("/etf/{date}")
+async def get_etf_info(date:str):
+    usecase = FetchProductDataUsecaseFactory.create()
+    result = await usecase.get_etf_data_by_date(date)
+    return result
+
+
 @product_data_router.post("/etf/save")
 async def fetch_and_save_etf():
 
@@ -62,3 +69,15 @@ async def fetch_and_save_etf():
             } for entity in saved_entities
         ]
     }
+
+@product_data_router.get("/fund/{date}")
+async def get_fund_info(date:str):
+    usecase = FetchProductDataUsecaseFactory.create()
+    result = await usecase.get_fund_data_by_date(date)
+    return result
+
+@product_data_router.get("/bond/{date}")
+async def get_bond_info(date:str):
+    usecase = FetchProductDataUsecaseFactory.create()
+    result = await usecase.get_bond_data_by_date(date)
+    return result
