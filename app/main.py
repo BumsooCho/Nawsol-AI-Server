@@ -24,6 +24,7 @@ from ieinfo.infrastructure.orm.ie_info import IEInfo
 from product.infrastructure.orm.product_bond import ProductBondORM
 from product.infrastructure.orm.product_fund import ProductFundORM
 from finance.infrastructure.orm.finance_orm import FinanceORM
+from scheduler.scheduler import start_scheduler
 
 
 from fastapi import FastAPI
@@ -66,6 +67,14 @@ app.include_router(news_info_router, prefix="/news_info")
 app.include_router(kakao_authentication_router, prefix="/kakao-authentication")
 
 # 앱 실행
+
+
+# 서버 시작 시 스케줄러 자동 실행
+@app.on_event("startup")
+def on_startup():
+    print("[INFO] FastAPI 서버 시작됨 — 스케줄러 실행")
+    start_scheduler()
+
 
 if __name__ == "__main__":
     import uvicorn
