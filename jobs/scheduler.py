@@ -85,7 +85,7 @@ async def run_scheduler_product_fund():
     from datetime import datetime
 
     today = datetime.now().strftime("%Y%m%d")
-    await usecase.get_bond_data_by_date(today)
+    await usecase.get_fund_data_by_date(today)
 
 ## 채권
 async def run_scheduler_product_bond():
